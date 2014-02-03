@@ -9,15 +9,15 @@ var app = express();
 
 var cameras = [
 	{
-		baseurl: 'http://admin:123456@192.168.0.33',
+		baseurl: 'http://admin:123456@192.168.1.10',
 		model: 'conceptronic'
 	},
 	{
-		baseurl: 'http://admin:123456@192.168.0.117',
+		baseurl: 'http://admin:123456@192.168.1.11',
 		model: 'conceptronic'
 	},
 	{
-		url: 'http://admin:123456@192.168.0.178',
+		baseurl: 'http://admin:123456@192.168.1.12',
 		model: 'conceptronic'
 	}
 ];
@@ -32,7 +32,6 @@ function SimpleProxy(url) {
 
 	self.url = url;
 	self.handle_request = function(req, res) {
-		console.log('Got request. Forwarding to ' + self.url);
 		request(self.url).pipe(res);
 	};
 }
