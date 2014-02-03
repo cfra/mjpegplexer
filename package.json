@@ -1,0 +1,21 @@
+{
+  "name": "mjpegplexer",
+  "version": "0.0.0",
+  "description": "Proxy application for webcams",
+  "main": "server.js",
+  "dependencies": {
+    "mjpeg-proxy": "git://git.sublab.org/node-mjpeg-proxy",
+    "express": "~3.4.8",
+    "request": "~2.33.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://git.sublab.org/mjpegplexer"
+  },
+  "author": "Christian Franke",
+  "license": "GPLv3"
+}
