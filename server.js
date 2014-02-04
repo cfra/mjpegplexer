@@ -32,7 +32,16 @@ function SimpleProxy(url) {
 
 	self.url = url;
 	self.handle_request = function(req, res) {
-		request(self.url).pipe(res);
+		request(self.url, function(err, response, body) {
+			if (err) {
+				console.log("Simple proxy " + self.url + " failed.");
+				console.log(err);
+				res.end();
+				return;
+			}
+			res.write(body);
+			res.end();
+		});
 	};
 }
 
