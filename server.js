@@ -2,7 +2,7 @@
 
 var express = require('express');
 var fs = require('fs');
-var request = require('request');
+var http = require('http');
 var MjpegProxy = require('mjpeg-proxy').MjpegProxy;
 
 var app = express();
@@ -32,16 +32,22 @@ function SimpleProxy(url) {
 
 	self.url = url;
 	self.handle_request = function(req, res) {
-		request(self.url, function(err, response, body) {
-			if (err) {
-				console.log("Simple proxy " + self.url + " failed.");
-				console.log(err);
+		var proxy = http.request(self.url, function(proxy_res) {
+			proxy_res.on('data', function(chunk) {
+				res.write(chunk, 'binary');
+			});
+			proxy_res.on('end', function() {
 				res.end();
-				return;
-			}
-			res.write(body);
+			});
+			res.writeHead(proxy_res.statusCode,
+					proxy_res.headers);
+		});
+		proxy.on('error', function(err) {
+			console.log("Simple proxy " + self.url + " failed:");
+			console.log(err);
 			res.end();
 		});
+		proxy.end();
 	};
 }
 
