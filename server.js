@@ -3,6 +3,8 @@
 var express = require('express');
 var fs = require('fs');
 var http = require('http');
+var url_module = require('url');
+
 var MjpegProxy = require('mjpeg-proxy').MjpegProxy;
 
 var app = express();
@@ -32,7 +34,9 @@ function SimpleProxy(url) {
 
 	self.url = url;
 	self.handle_request = function(req, res) {
-		var proxy = http.request(self.url, function(proxy_res) {
+		var request_options = url_module.parse(self.url);
+		request_options.agent = false;
+		var proxy = http.request(request_options, function(proxy_res) {
 			proxy_res.on('data', function(chunk) {
 				res.write(chunk, 'binary');
 			});
@@ -47,7 +51,12 @@ function SimpleProxy(url) {
 			console.log(err);
 			res.end();
 		});
-		proxy.end();
+		req.on('data', function(chunk) {
+			proxy.write(chunk, 'binary');
+		});
+		req.on('end', function() {
+			proxy.end();
+		});
 	};
 }
 
@@ -72,7 +81,7 @@ for (var camera_idx in cameras) {
 		urls.up = camera.baseurl + '/control/up';
 		urls.right = camera.baseurl + '/control/right';
 		urls.left = camera.baseurl + '/control/left';
-		urls.snapshow = camera.baseurl + '/snapshot.jpg';
+		urls.snapshot = camera.baseurl + '/snapshot.jpg';
 	};
 
 	camera.proxy = new MjpegProxy(urls.mjpeg, still_frames);
