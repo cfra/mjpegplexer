@@ -11,16 +11,36 @@ var app = express();
 
 var cameras = [
 	{
-		baseurl: 'http://admin:123456@192.168.1.10',
-		model: 'conceptronic'
+		baseurl: 'http://192.168.1.20:8080/cam/0',
+		model: 'mjpegplexer'
 	},
 	{
-		baseurl: 'http://admin:123456@192.168.1.11',
-		model: 'conceptronic'
+		baseurl: 'http://192.168.1.20:8080/cam/1',
+		model: 'mjpegplexer'
 	},
 	{
-		baseurl: 'http://admin:123456@192.168.1.12',
-		model: 'conceptronic'
+		baseurl: 'http://192.168.1.20:8080/cam/2',
+		model: 'mjpegplexer'
+	},
+	{
+		baseurl: 'http://192.168.1.20:8080/cam/3',
+		model: 'mjpegplexer'
+	},
+	{
+		baseurl: 'http://192.168.1.20:8080/cam/4',
+		model: 'mjpegplexer'
+	},
+	{
+		baseurl: 'http://192.168.1.20:8080/cam/5',
+		model: 'mjpegplexer'
+	},
+	{
+		baseurl: 'http://192.168.1.20:8080/cam/6',
+		model: 'mjpegplexer'
+	},
+	{
+		baseurl: 'http://192.168.1.20:8080/cam/7',
+		model: 'mjpegplexer'
 	}
 ];
 
@@ -97,6 +117,8 @@ for (var camera_idx in cameras) {
 	app.use('/cam/' + camera_idx + '/browse',
 			express.static(__dirname + '/cam_public'));
 }
+	app.use('/interface',
+			express.static(__dirname + '/public'));
 
 app.get('/blackout', function(req, res) {
 	for (var camera_idx in cameras) {

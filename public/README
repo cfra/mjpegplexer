@@ -1,0 +1,46 @@
+This Interface is developed to work with firefox 27.0.1.
+
+Installation
+============
+
+1.	Download mjpegplexer: 
+	http://git.sublab.org/mjpegplexer/
+
+2. 	Setup mjpegplexer properly.
+
+3. 	Copy the contents of cctv-control to the root 
+	of your webserver and set the camera-host-IP 
+	to the server that runs mjpegplexer. 
+
+Omit Printing-Dialogue
+======================
+
+To make firefox not display the printing dialogue a config
+option needs to be added. I recommend to print to a file, 
+for everything to work as expected.
+
+1. 	enter "about:config" and hit enter
+
+2. 	create a new boolean (right-click) 
+	with the name "print.always_silent_print" 
+	and set it to "true"
+
+3.	set "print.print_to_file" to "true"
+
+4. 	set your preferred filename in 
+	"print.print_to_filename"
+
+5.(opt) adapt values of footers and headers for your needs
+
+
+Default Values
+==============
+
+print.always_silent_print	false
+print.print_to_file		false
+
+print.footerleft        &PT	//Pagenumber
+print.footerright       &D	//Date
+print.headerleft        &T	//?
+print.headerright       &U	//Filename
+
