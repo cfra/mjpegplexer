@@ -12,8 +12,8 @@
 // This Software is licensed under the GPL Version 3, 29 June 2007
 
 var cam = 0;
-var camHost = "127.0.0.1:8080";
-var controlHost = "127.0.0.1:8080";
+var camHost = "192.168.1.20:8080";
+var controlHost = "192.168.1.20:8080";
 var formActive = 0; //crazy errors if boolean is used here...
 
 //create event which is triggered when DOM is ready 
