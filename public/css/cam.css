@@ -45,9 +45,9 @@ body	{
 
 #form 	{
         /*visibility: hidden;*/
-	width: 800px;
+	width: 1000px;
         height: 100%;
-        background-color: rgba(127, 192, 255, 0.9);
+        background-color: rgba(170, 170, 170, 0.9);
         margin: 0 auto;
         position: relative;
 	top: 0px;
@@ -57,13 +57,31 @@ body	{
 	z-index: 200;
 }
 
-#formImage      {
+#controlBox {
 	margin-right: 0px;
 	margin-left: auto;
 	float: right;
         position: relative;
         width: 400px;
+	padding: 0px;
+}
 
+#formImage {
+	width: 400px;
+}
+
+#formDate {
+	background-color: #ccc;
+}
+
+#formAnalysis1, #formAnalysis2, #formAnalysis3 {
+	width: 550px;
+	height: 150px;
+}
+
+#errorBox {
+	margin: 10px auto;
+	font-size: 1.1em;
 }
 
 #printButton    {

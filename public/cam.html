@@ -10,22 +10,19 @@
 		<img src="img/testbild.gif" id="camImage">
 	</div>
 	<div id="form">
-                <img src="about:blank" id="formImage">
-                <p>
+                <div id="controlBox">
+                    <img src="about:blank" id="formImage"><br>
+                    <span id="errorBox">&nbsp;</span><br>
+                    <a href="#" id='printButton'>&nbsp;</a>
+                </div>
+                <p>Personalkennzeichnung:&nbsp;<input id="formName"> &nbsp;&nbsp;Zeitpunkt:<input id="formDate" readonly>
                 </p>
-                <p>Personalkennzeichnung</p>
-                <input id="formName"><br>
-                <p>Zeitpunkt</p>
-                <input id="formDate" readonly><br>
-                <p>Analyse der Aufnahme</p>
-                <textarea id="formAnalysis1"></textarea>
-                <p>Bemerkungen zum Untersuchungsverlauf</p>
-                <textarea id="formAnalysis2"></textarea>
-                <p>Pers&ouml;nliche Bemerkungen</p>
-                <textarea id="formAnalysis3"></textarea>
-                <p>
-                <a href="#" id='printButton' onclick='hideForm()'>&nbsp</a>
-                </p>
+                <p>Analyse der Aufnahme:<br>
+                <textarea id="formAnalysis1"></textarea><br>
+                Bemerkungen zum Untersuchungsverlauf:<br>
+                <textarea id="formAnalysis2"></textarea><br>
+                Pers&ouml;nliche Bemerkungen:<br>
+                <textarea id="formAnalysis3"></textarea></p>
         </div>
 
 </body>

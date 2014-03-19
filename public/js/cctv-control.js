@@ -14,6 +14,7 @@
 var cam = 0;
 var camHost = "192.168.1.20:8080";
 var controlHost = "192.168.1.20:8080";
+var submitHost = "192.168.1.20:8080";
 var formActive = 0; //crazy errors if boolean is used here...
 
 //create event which is triggered when DOM is ready 
@@ -161,28 +162,79 @@ function showForm()	{
 
 	//make form visible
 	document.getElementById("form").style.visibility = 'visible';
+	document.getElementById("printButton").onclick = completeForm;
 	formActive = 1;
 	localStorage.setItem("formActive", formActive);
 }
 
+var errorTimeout = null;
+function setError(message) {
+	var error_box = document.getElementById('errorBox');
+	error_box.innerText = message;
+	if (errorTimeout !== null)
+		window.clearTimeout(errorTimeout);
+	errorTimeout = window.setTimeout(function() {
+		error_box.innerHTML = '&nbsp;';
+		errorTimeout = null;
+	}, 5000);
+	return false;
+}
 
-function hideForm()	{
-	
-	//save form data in local storage for later use
-	localStorage.setItem("formName", document.getElementById('formName').value);
-	localStorage.setItem("formDate", document.getElementById('formDate').value);
-	localStorage.setItem("formAnalysis1", document.getElementById('formAnalysis1').value);
-	localStorage.setItem("formAnalysis2", document.getElementById('formAnalysis2').value);
-	localStorage.setItem("formAnalysis3", document.getElementById('formAnalysis3').value);
+
+function completeForm()	{
+	var formName = document.getElementById('formName');
+	var formDate = document.getElementById('formDate');
+	var formAnalysis1 = document.getElementById('formAnalysis1');
+	var formAnalysis2 = document.getElementById('formAnalysis2');
+	var formAnalysis3 = document.getElementById('formAnalysis3');
+
+	if (formName.value.length < 3)
+		return setError("Personalkennzeichung unzureichend!");
+	if (formAnalysis1.value.length < 3)
+		return setError("Analyse der Aufnahme unzureichend!");
+	if (formAnalysis2.value.length < 3)
+		return setError("Bemerkungen zum Untersuchungsverlauf unzureichend!");
+/*	if (formAnalysis3.value.length < 3)
+		return setError("Analyse der Aufnahme unzureichend!");*/
+
+	// unfocus and disable button
+	//otherwise next enter press will trigger print-function
+	document.getElementById('printButton').blur();
+	document.getElementById('printButton').onclick = function() {
+		return false;
+	};
+
+	var request = new XMLHttpRequest();
+	request.open("post", "http://" + submitHost + "/submit", false);
+
+	var post_object = {
+		'formName': formName.value,
+		'formDate': formDate.value,
+		'formAnalysis1': formAnalysis1.value,
+		'formAnalysis2': formAnalysis2.value,
+		'formAnalysis3': formAnalysis3.value,
+		'formImage': localStorage.getItem("snapShot")
+	};
+
+	var post_data = JSON.stringify(post_object);
+	request.setRequestHeader('Content-Type', 'application/json');
+	request.send(post_data);
+
+	// clear the input fields so they are not
+	// visible during next usage of the form.
+	// XXX: Leave the name in?
+	document.getElementById('formName').value = '';
+	document.getElementById('formAnalysis1').value = '';
+	document.getElementById('formAnalysis2').value = '';
+	document.getElementById('formAnalysis3').value = '';
 
 	//hide form and unfocus button
 	//otherwise next enter press will trigger print-function
-	document.getElementById('printButton').blur();
-	window.open('print.html', 'Printlayout');
 	document.getElementById("form").style.visibility = 'hidden';
 	formActive = 0;
 	localStorage.setItem("formActive", formActive);
 	changeCam();
+	return false;
 }
 
 
