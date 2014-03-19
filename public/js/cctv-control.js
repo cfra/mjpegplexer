@@ -12,9 +12,9 @@
 // This Software is licensed under the GPL Version 3, 29 June 2007
 
 var cam = 0;
-var camHost = "192.168.1.20:8080";
-var controlHost = "192.168.1.20:8080";
-var submitHost = "192.168.1.20:8080";
+var camHost = "192.168.1.66:8080";
+var controlHost = "192.168.1.66:8080";
+var submitHost = "192.168.1.66:8080";
 var formActive = 0; //crazy errors if boolean is used here...
 
 //create event which is triggered when DOM is ready 
@@ -30,9 +30,16 @@ function initReady(fn)	{
 	}
 }
 
+function reloadSrc() {
+	var camImage = document.getElementById('camImage');
+	camImage.setAttribute('src', camImage.getAttribute('src'));
+	window.setTimeout(reloadSrc, 5000);
+}
+
 //hide the form, and switch on camera
 function initViewer()	{
 	var display = document.getElementById('screen');
+	var camImage = document.getElementById('camImage');
 	var tempCam = parseInt(localStorage.getItem('cam'));
 
 	formActive = localStorage.getItem("formActive");
@@ -43,7 +50,8 @@ function initViewer()	{
 	//if form was displayed, when page was reloaded, display form
 	if (formActive == 1)	{
 		displayCamNumber();
-		display.innerHTML += '<img id="camImage" src="http://' + camHost + '/cam/' + cam + '/stream.mjpeg" />';
+		camImage.setAttribute('src',
+			      'http://' + camHost + '/cam/' + cam + '/stream.mjpeg');
 		showForm();
 	}
 	else	{
@@ -51,25 +59,30 @@ function initViewer()	{
 		document.getElementById('form').style.visibility = "hidden";
 		changeCam();
 	}
+
+	reloadSrc();
 }
 
 function displayCamNumber()	{
-	var display = document.getElementById('screen');
-	camDisplay = cam + 1;
-	display.innerHTML = '<p class="camNumber">' + camDisplay + '</p>';
+	var camNumber = cam + 1;
+	var camDisplay = document.getElementsByClassName('camNumber')[0];
+
+	camDisplay.innerText = camNumber;
 }
 
 //change currently displayed camera to the one in cam variable
 function changeCam()	{
 	
 	var display = document.getElementById('screen');
+	var camImage = document.getElementById('camImage');
 	if (cam <= 7 && cam >= 0)	{
 			displayCamNumber();
-			display.innerHTML += '<img id="camImage" src="http://' + camHost + '/cam/' + cam + '/stream.mjpeg" />';
+			camImage.setAttribute('src',
+			      'http://' + camHost + '/cam/' + cam + '/stream.mjpeg');
 			localStorage.setItem("cam", cam);
 	}
 	else	{
-			display.innerHTML = '<img id="camImage" src="img/testbild.gif" />';
+			camImage.setAttribute('src', 'img/testbild.gif');
 	}
 }
 
