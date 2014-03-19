@@ -45,7 +45,7 @@ body	{
 
 #form 	{
         /*visibility: hidden;*/
-	width: 1000px;
+	width: 600px;
         height: 100%;
         background-color: rgba(170, 170, 170, 0.9);
         margin: 0 auto;
@@ -64,10 +64,6 @@ body	{
         position: relative;
         width: 400px;
 	padding: 0px;
-}
-
-#formImage {
-	width: 400px;
 }
 
 #formDate {

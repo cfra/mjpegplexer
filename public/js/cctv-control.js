@@ -112,6 +112,8 @@ function saveImage()	{
 	        	        
 	        	        try {
 	        	            localStorage.setItem("snapShot", result);
+				    localStorage.setItem("timeStamp",
+					   	 strftime('%Y-%m-%d_%H-%M-%S'));
 	        	        }
 	        	        catch (e) {
 	        	            console.log("Storage failed: " + e);
@@ -133,32 +135,16 @@ function showForm()	{
 
 	//load snapshot from localstorage
 	var display1 = document.getElementById("camImage"),
-	    display2 = document.getElementById("formImage"),
 	    stor = localStorage.getItem("snapShot");
-
-	var d = new Date();
-	
-	var date = d.getDay();
-	    date += '/';
-	    date += d.getMonth();
-	    date += '/'; 
-	    date += d.getFullYear();
-	
-	var time = d.getHours();
-	    time += ':';
-	    time += d.getMinutes();
-	    time += ':';
-	    time += d.getSeconds();
-	    time += ' Uhr'; 
+	    timestamp = localStorage.getItem("timeStamp");
 
 	//display loaded image
 	if (stor)       {
 		display1.setAttribute("src", stor);
-		display2.setAttribute("src", stor);
 	}
 
 	//insert date in date-field
-	document.getElementById("formDate").value = date + ' ' + time;
+	document.getElementById("formDate").value = timestamp;
 
 	//make form visible
 	document.getElementById("form").style.visibility = 'visible';
@@ -208,6 +194,7 @@ function completeForm()	{
 	request.open("post", "http://" + submitHost + "/submit", false);
 
 	var post_object = {
+		'cam': localStorage.getItem("cam"),
 		'formName': formName.value,
 		'formDate': formDate.value,
 		'formAnalysis1': formAnalysis1.value,

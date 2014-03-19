@@ -2,6 +2,7 @@
 <html lang=en>
 <head>
 	<meta charset="utf-8">
+	<script src="js/strftime-min.js" type="text/javascript"></script>
 	<script src="js/cctv-control.js" type="text/javascript"></script>
 	<link rel="stylesheet" type="text/css" href="css/cam.css">
 </head>
@@ -10,11 +11,6 @@
 		<img src="img/testbild.gif" id="camImage">
 	</div>
 	<div id="form">
-                <div id="controlBox">
-                    <img src="about:blank" id="formImage"><br>
-                    <span id="errorBox">&nbsp;</span><br>
-                    <a href="#" id='printButton'>&nbsp;</a>
-                </div>
                 <p>Personalkennzeichnung:&nbsp;<input id="formName"> &nbsp;&nbsp;Zeitpunkt:<input id="formDate" readonly>
                 </p>
                 <p>Analyse der Aufnahme:<br>
@@ -23,6 +19,8 @@
                 <textarea id="formAnalysis2"></textarea><br>
                 Pers&ouml;nliche Bemerkungen:<br>
                 <textarea id="formAnalysis3"></textarea></p>
+                <span id="errorBox">&nbsp;</span><br>
+                <a href="#" id='printButton'>&nbsp;</a>
         </div>
 
 </body>
