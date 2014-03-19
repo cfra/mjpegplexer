@@ -15,37 +15,37 @@ var storage_dir = '/home/untersuchung/storage';
 
 var cameras = [
 	{
-		baseurl: 'http://admin:123456@192.168.1.10',
-		model: 'conceptronic'
+		baseurl: 'http://192.168.1.20:8080/cam/0',
+		model: 'mjpegplexer'
 	},
 	{
-		baseurl: 'http://admin:123456@192.168.1.11',
-		model: 'conceptronic'
+		baseurl: 'http://192.168.1.20:8080/cam/1',
+		model: 'mjpegplexer'
 	},
 	{
-		baseurl: 'http://admin:123456@192.168.1.12',
-		model: 'conceptronic'
+		baseurl: 'http://192.168.1.20:8080/cam/2',
+		model: 'mjpegplexer'
 	},
 	{
-		baseurl: 'http://admin:123456@192.168.1.14',
-		model: 'conceptronic'
+		baseurl: 'http://192.168.1.20:8080/cam/3',
+		model: 'mjpegplexer'
 	},
 	{
-		baseurl: 'http://admin:123456@192.168.1.15',
-		model: 'conceptronic'
+		baseurl: 'http://192.168.1.20:8080/cam/4',
+		model: 'mjpegplexer'
 	},
 	{
-		baseurl: 'http://admin:123456@192.168.1.16',
-		model: 'conceptronic'
+		baseurl: 'http://192.168.1.20:8080/cam/5',
+		model: 'mjpegplexer'
 	},
 	{
-		baseurl: 'http://admin:123456@192.168.1.17',
-		model: 'conceptronic'
+		baseurl: 'http://192.168.1.20:8080/cam/6',
+		model: 'mjpegplexer'
 	},
 	{
-		baseurl: 'http://admin:123456@192.168.1.18',
-		model: 'conceptronic'
-	}
+		baseurl: 'http://192.168.1.20:8080/cam/7',
+		model: 'mjpegplexer'
+	},
 ];
 
 var still_frames = [

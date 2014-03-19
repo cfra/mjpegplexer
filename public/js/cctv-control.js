@@ -193,8 +193,8 @@ function completeForm()	{
 		return setError("Analyse der Aufnahme unzureichend!");
 	if (formAnalysis2.value.length < 3)
 		return setError("Bemerkungen zum Untersuchungsverlauf unzureichend!");
-/*	if (formAnalysis3.value.length < 3)
-		return setError("Analyse der Aufnahme unzureichend!");*/
+	if (formAnalysis3.value.length < 3)
+		return setError("Persönliche Bemerkungen fehlen!");
 
 	// unfocus and disable button
 	//otherwise next enter press will trigger print-function
