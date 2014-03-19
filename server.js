@@ -4,10 +4,14 @@ var express = require('express');
 var fs = require('fs');
 var http = require('http');
 var url_module = require('url');
+var child_process = require('child_process');
 
 var MjpegProxy = require('mjpeg-proxy').MjpegProxy;
 
 var app = express();
+app.use(express.json());
+
+var storage_dir = '/home/untersuchung/storage';
 
 var cameras = [
 	{
@@ -129,5 +133,30 @@ app.get('/blackout', function(req, res) {
 	res.send('OK');
 });
 
+/* receives the form from the user */
+app.post('/submit', function(req, res) {
+	var timestamp = req.body.formDate;
+	var path = storage_dir + '/' + timestamp;
+	fs.mkdirSync(path);
+
+	/* Save the image to disk */
+	/* XXX: here be dragons */
+	var image = req.body.formImage;
+	var regex = /^data:.+?\/.+?;base64,(.*?)$/;
+	var matches = image.match(regex);
+	var base_data = matches[1];
+	var buffer = new Buffer(base_data, 'base64');
+	fs.writeFileSync(path + '/snapshot.jpg', buffer);
+
+	req.body.formImage = undefined;
+	var info = JSON.stringify(req.body);
+	fs.writeFileSync(path + '/info.json', info);
+
+	child_process.spawn(__dirname + '/preprint/run.py', [path], {
+		detached: true,
+		stdio: 'inherit'
+	});
+	res.send('OK');
+});
 
 app.listen(8080);
